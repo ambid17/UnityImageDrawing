@@ -149,7 +149,7 @@ public class DrawViewController : MonoBehaviour, IBeginDragHandler, IDragHandler
 
     public void MarkPixelToChange(int x, int y) {
         // Need to transform x and y coordinates to flat coordinates of array
-        int arrayPosition = y * ((int)drawSprite.rect.width + x);
+        int arrayPosition = (y * (int)drawSprite.rect.width) + x;
 
         // Check if this is a valid position
         if (arrayPosition > currentColors.Length || arrayPosition < 0) {
@@ -183,7 +183,6 @@ public class DrawViewController : MonoBehaviour, IBeginDragHandler, IDragHandler
             return;
         }
 
-        Debug.Log("localCur: " + localCursor);
         //Check if the cursor is over the image
         if (localCursor.x < rectTransform.rect.width &&
             localCursor.y < rectTransform.rect.height &&
@@ -191,7 +190,6 @@ public class DrawViewController : MonoBehaviour, IBeginDragHandler, IDragHandler
             localCursor.y > 0) {
             float rectToPixelScale = drawImage.sprite.rect.width / rectTransform.rect.width;
             localCursor = new Vector2(localCursor.x * rectToPixelScale, localCursor.y * rectToPixelScale);
-            Debug.Log("localCur2: " + localCursor);
             Paint(localCursor);
             previousDragPosition = localCursor;
         } else {
