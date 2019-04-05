@@ -1,10 +1,6 @@
 # UnityImageDrawing
 Unity plugin to draw on an image
 
-FreeImageDraw README
-
-[github repo](https://github.com/ambid17/UnityImageDrawing "Github repo")
-
 # Included Files
 ## Materials:
 * TransparentImageMaterial- this material is included to show how to draw on top of other images, such that the image you are drawing on is transparent
