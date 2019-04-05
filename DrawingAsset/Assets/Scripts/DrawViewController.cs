@@ -36,6 +36,9 @@ public class DrawViewController : MonoBehaviour, IBeginDragHandler, IDragHandler
         resetColor = new Color(0, 0, 0, 0);
 
         Initialize();
+
+        //Toggle this off to prevent the texture from getting cleared
+        ResetTexture();
     }
 
     //Call this whenever the image this script is attached has changed
@@ -150,7 +153,6 @@ public class DrawViewController : MonoBehaviour, IBeginDragHandler, IDragHandler
 
         // Check if this is a valid position
         if (arrayPosition > currentColors.Length || arrayPosition < 0) {
-            Debug.LogError("DrawViewController.MarkPixelToChange() pixel out of bounds");
             return;
         }
 
@@ -181,13 +183,22 @@ public class DrawViewController : MonoBehaviour, IBeginDragHandler, IDragHandler
             return;
         }
 
-        if (Mathf.Abs(localCursor.x) < drawImage.sprite.rect.width && Mathf.Abs(localCursor.y) < drawImage.sprite.rect.height) {
+        Debug.Log("localCur: " + localCursor);
+        //Check if the cursor is over the image
+        if (localCursor.x < rectTransform.rect.width &&
+            localCursor.y < rectTransform.rect.height &&
+            localCursor.x > 0 &&
+            localCursor.y > 0) {
             float rectToPixelScale = drawImage.sprite.rect.width / rectTransform.rect.width;
             localCursor = new Vector2(localCursor.x * rectToPixelScale, localCursor.y * rectToPixelScale);
+            Debug.Log("localCur2: " + localCursor);
             Paint(localCursor);
+            previousDragPosition = localCursor;
+        } else {
+            previousDragPosition = Vector2.zero;
         }
 
-        previousDragPosition = localCursor;
+
     }
 
     //Reset the previosDragPosition so that our brush knows the next drag is a new line
