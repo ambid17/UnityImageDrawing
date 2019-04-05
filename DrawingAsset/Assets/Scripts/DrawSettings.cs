@@ -33,7 +33,7 @@ public class DrawSettings {
         Color c = drawColor;
         c.a = amount;
         drawColor = c;
-        transparency = amount;
+        //transparency = amount;
     }
 
     public void AddUndo(Color32[] undo) {
